@@ -2,6 +2,9 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 
+ITERATIONS = 1000
+LEARNING_RATE = 0.5
+
 def one_hot(Y):
     one_hot_Y = np.zeros((Y.size, Y.max() + 1)) # Initialize an array with dimensions of Amount of Total Labels by Amount of Distinct Labels (10 digits in this case) 
     one_hot_Y[np.arange(Y.size), Y] = 1 # For each row in the zeroed array, set the value at the corresponding digit as an index to 1 
@@ -95,7 +98,8 @@ def backward_propagation(parameters, outputs, X, Y):
     
     return gradients
 
-def gradient_descent(parameters, gradients, learning_rate = 0.5):
+def gradient_descent(parameters, gradients):
+    global LEARNING_RATE
     # Extract weights and biases
     weights_hidden = parameters['weights_hidden']
     biases_hidden = parameters['biases_hidden']
@@ -109,17 +113,17 @@ def gradient_descent(parameters, gradients, learning_rate = 0.5):
     dbiases_output = gradients['dbiases_output']
 
     # Apply gradients to weights and biases
-    weights_hidden = weights_hidden - learning_rate * dweights_hidden
-    biases_hidden = biases_hidden - learning_rate * dbiases_hidden
-    weights_output = weights_output - learning_rate * dweights_output
-    biases_output = biases_output - learning_rate * dbiases_output
+    weights_hidden = weights_hidden - LEARNING_RATE * dweights_hidden
+    biases_hidden = biases_hidden - LEARNING_RATE * dbiases_hidden
+    weights_output = weights_output - LEARNING_RATE * dweights_output
+    biases_output = biases_output - LEARNING_RATE * dbiases_output
     
     # New weights and biases
     parameters = {"weights_hidden": weights_hidden, "biases_hidden": biases_hidden,"weights_output": weights_output,"biases_output": biases_output}
     
     return parameters
 
-def model(X, Y, hidden_layer_neurons, num_iterations = 1000):
+def model(X, Y, hidden_layer_neurons, num_iterations):
     # Define the # of neurons for each layer based on input and output configurations
     (input_layer_neurons, hidden_layer_neurons, ouput_layer_neurons) = define_neurons(X, Y)
 
@@ -190,7 +194,7 @@ Y_test = np.array([Y_test])
 
 # Train the model and save the weights and biases
 print("Building Model...")
-parameters = model(X_train, Y_train, 10, 1000)
+parameters = model(X_train, Y_train, 10, ITERATIONS)
 
 # Weights + Biases after training
 weights_hidden = parameters['weights_hidden']
