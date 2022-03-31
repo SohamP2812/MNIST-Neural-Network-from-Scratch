@@ -2,8 +2,8 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 
-ITERATIONS = 1000
-LEARNING_RATE = 0.5
+ITERATIONS = 6000
+LEARNING_RATE = 0.07
 
 def one_hot(Y):
     one_hot_Y = np.zeros((Y.size, Y.max() + 1)) # Initialize an array with dimensions of Amount of Total Labels by Amount of Distinct Labels (10 digits in this case) 
