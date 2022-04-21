@@ -18,7 +18,7 @@ def sigmoid(z):
 def define_neurons(X, Y):
     Y = one_hot(Y) # Convert the labels into 
     input_layer_neurons = X.shape[0] # size of input layer
-    hidden_layer_neurons = 10 #hidden layer of size 4
+    hidden_layer_neurons = 10 # hidden layer of size 10
     ouput_layer_neurons = Y.shape[0] # size of output layer
     return (input_layer_neurons, hidden_layer_neurons, ouput_layer_neurons)
     
